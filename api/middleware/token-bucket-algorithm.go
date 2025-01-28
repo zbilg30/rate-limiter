@@ -1,3 +1,15 @@
+/*
+	Token Bucket Algorithm
+
+	1. A token bucket is a container that has pre-defined capacity. Tokens are put in the bucket at preset rates periodically. Once the bucket is full, no more tokens are added. As shown in Figure 4, the token bucket capacity is 4. The refiller puts 2 tokens into the bucket every second. Once the bucket is full, extra tokens will overflow.
+
+	2. Each request consumes one token. When a request arrives, we check if there are enough tokens in the bucket. Figure 5 explains how it works.
+
+	3. If there are enough tokens, we take one token out for each request, and the request goes through.
+
+	4. If there are not enough tokens, the request is dropped.
+*/
+
 package middleware
 
 import (
