@@ -21,7 +21,7 @@ func (tb *TokenBucket) allow() bool {
 	now := time.Now()
 	elapsed := now.Sub(tb.lastRefill)
 
-	if elapsed >= time.Minute {
+	if elapsed >= tb.rate {
 		tb.tokens = tb.capacity
 		tb.lastRefill = now
 	}
@@ -44,7 +44,7 @@ func newTokenBucket(capacity int, rate time.Duration) *TokenBucket {
 }
 
 func TokenBucketAlgorithmMiddleware(next http.Handler) http.Handler {
-	tb := newTokenBucket(5, time.Second)
+	tb := newTokenBucket(5, time.Minute)
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if !tb.allow() {
