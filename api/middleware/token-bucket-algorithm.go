@@ -56,7 +56,7 @@ func newTokenBucket(capacity int, rate time.Duration) *TokenBucket {
 }
 
 func TokenBucketAlgorithmMiddleware(next http.Handler) http.Handler {
-	tb := newTokenBucket(5, time.Minute)
+	tb := newTokenBucket(5, 5*time.Second)
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if !tb.allow() {
